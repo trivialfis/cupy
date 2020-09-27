@@ -188,6 +188,8 @@ cpdef ndarray fromDlpack(object dltensor) except +:
         >>> cupy.testing.assert_array_equal(array1, array2)
 
     """
+    if 'used_dltensor' in str(dltensor):
+        raise ValueError('dltensor must not be used.')
     mem = DLPackMemory(dltensor)
 
     cdef DLDataType dtype = mem.dlm_tensor.dl_tensor.dtype

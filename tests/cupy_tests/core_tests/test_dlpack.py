@@ -48,3 +48,9 @@ class TestDLTensorMemory(unittest.TestCase):
         assert self.pool.n_free_blocks() == 0
         del tensor
         assert self.pool.n_free_blocks() == 1
+
+    def test_used(self):
+        array = cupy.random.random((10, 1))
+        dltensor = array.toDlpack()
+        cupy.fromDlpack(dltensor)
+        self.assertRaises(ValueError, cupy.fromDlpack, dltensor)
